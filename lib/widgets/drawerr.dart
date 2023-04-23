@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_room/screens/search_screen.dart';
 
 class Drawerr extends StatelessWidget {
   const Drawerr({super.key});
@@ -20,7 +21,7 @@ class Drawerr extends StatelessWidget {
             leading: const Icon(Icons.search),
             title: const Text('Search Properties'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacementNamed(SearchScreen.routeName);
             },
           ),
           ListTile(

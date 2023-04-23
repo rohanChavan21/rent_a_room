@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/widgets/room_item.dart';
 
 class Landing extends StatelessWidget {
   const Landing({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final rooms = Provider.of<Rooms>(context);
     return Column(
       children: [
         Container(
@@ -79,6 +83,16 @@ class Landing extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: rooms.items.length,
+            itemBuilder: (ctx, i) {
+              return RoomItem(
+                  id: rooms.items[i].id!,
+                );
+            },
           ),
         ),
       ],
