@@ -5,7 +5,7 @@ class ProfileScreen extends StatelessWidget {
   final Profile profile = Profile(
     name: 'Promod Adde',
     email: 'PramodAdde@gmail.com',
-    imageUrl: 'images/profile.jpg',
+    imageUrl: 'images/profile2.png',
   );
 
   ProfileScreen({Key? key}) : super(key: key);
@@ -47,7 +47,8 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 profile.name,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -68,6 +69,7 @@ class ProfileScreen extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   // handle logout button tap
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Logout'),
               ),

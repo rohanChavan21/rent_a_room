@@ -19,7 +19,7 @@ class Landing extends StatelessWidget {
               IconButton(
                 icon: const CircleAvatar(
                   radius: 60,
-                  backgroundImage: AssetImage('images/profile.jpg'),
+                  backgroundImage: AssetImage('images/profile2.png'),
                 ),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
