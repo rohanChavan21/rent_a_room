@@ -45,7 +45,7 @@ class RoomItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    loadedRoom.description.substring(0, 50) + "...",
+                    "${loadedRoom.description.substring(0, 50)}...",
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 10),
