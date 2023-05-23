@@ -5,6 +5,7 @@ import 'package:rent_a_room/screens/home_screen.dart';
 import 'package:rent_a_room/screens/login_screen.dart';
 import 'package:rent_a_room/screens/room_overview_screen.dart';
 import 'package:rent_a_room/screens/search_screen.dart';
+import 'package:rent_a_room/screens/wishlist_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
         routes: {
           MyHomePage.routeName: (ctx) => const MyHomePage(),
           RoomOverviewScreen.routeName: (ctx) => const RoomOverviewScreen(),
-          SearchScreen.routeName: (ctx) => SearchScreen()
+          SearchScreen.routeName: (ctx) => SearchScreen(),
+          WishlistScreen.routeName: (ctx) => WishlistScreen()
         },
       ),
     );

@@ -6,6 +6,9 @@ class ProfileScreen extends StatelessWidget {
     name: 'Promod Adde',
     email: 'PramodAdde@gmail.com',
     imageUrl: 'images/profile2.png',
+    mobileNumber: '9322289768',
+    age: 20,
+    gender: 'male',
   );
 
   ProfileScreen({Key? key}) : super(key: key);
@@ -38,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
           Center(
             child: CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage(profile.imageUrl),
+              backgroundImage: AssetImage(profile.imageUrl!),
             ),
           ),
           const SizedBox(height: 28),

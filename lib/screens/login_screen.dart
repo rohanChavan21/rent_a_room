@@ -6,11 +6,12 @@ import '/screens/home_screen.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _passFocusNode = FocusNode();
 
   late String _email;
   late String _password;
@@ -20,6 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
       _formKey.currentState!.save();
       // TODO: handle login with email and password
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _passFocusNode.dispose();
+    super.dispose();
   }
 
   void _signInWithGoogle() {
@@ -37,19 +45,17 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         color: const Color(0xFF210347),
         child: Padding(
-          padding: const EdgeInsets.only(top:40,left: 10, right: 10),
+          padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(
-                width: 250, // Set the desired width
-                height: 250, // Set the desired height
+                width: 230, // Set the desired width
+                height: 230, // Set the desired height
                 child: Image(
                   image: AssetImage('images/1.jpg'),
                 ),
               ),
-             
-
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 padding: const EdgeInsets.all(30),
@@ -87,6 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(_passFocusNode);
+                          },
                           onSaved: (value) {
                             _email = value!;
                           },
@@ -111,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                          focusNode: _passFocusNode,
                           onSaved: (value) {
                             _password = value!;
                           },
@@ -127,10 +137,25 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                           minimumSize:const Size(400, 50),
+                          minimumSize: const Size(400, 50),
                         ),
                         child: const Text('Login'),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            decoration: TextDecoration.underline
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -140,14 +165,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: SignInButton(
-                Buttons.Google,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  Buttons.Google,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  onPressed: _signInWithGoogle,
                 ),
-                onPressed: _signInWithGoogle,
               ),
-              ),
-              
             ],
           ),
         ),

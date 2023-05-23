@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_a_room/providers/room.dart';
 import 'package:rent_a_room/providers/rooms.dart';
 import 'package:rent_a_room/screens/home_screen.dart';
 
-class RoomOverviewScreen extends StatelessWidget {
+class RoomOverviewScreen extends StatefulWidget {
   static const routeName = '/room-overview';
 
   const RoomOverviewScreen({super.key});
 
   @override
+  State<RoomOverviewScreen> createState() => _RoomOverviewScreenState();
+}
+
+class _RoomOverviewScreenState extends State<RoomOverviewScreen> {
+  @override
   Widget build(BuildContext context) {
     final roomId = ModalRoute.of(context)!.settings.arguments as String;
     final loadedRoom =
         Provider.of<Rooms>(context, listen: false).findById(roomId);
-
+    bool toggle = false;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -21,33 +27,73 @@ class RoomOverviewScreen extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .popAndPushNamed(MyHomePage.routeName);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Theme.of(context).colorScheme.primary,
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .popAndPushNamed(MyHomePage.routeName);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right:8.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: IconButton(
+                          onPressed: () => {
+                            setState(() {
+                              toggle = !toggle;
+                            }),
+                            loadedRoom.toggleWishlist(),
+                          },
+                          icon: Icon(
+                            loadedRoom.isWishlisted
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
+                          ),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(

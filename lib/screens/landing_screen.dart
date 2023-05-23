@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/screens/wishlist_screen.dart';
 import 'package:rent_a_room/widgets/room_item.dart';
 
 class Landing extends StatelessWidget {
@@ -32,15 +33,27 @@ class Landing extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              IconButton(
-                iconSize: 25,
-                icon: const Icon(
-                  Icons.bookmark,
-                  color: Colors.purple,
+              Consumer<Rooms>(
+                builder: (_, room, ch) => Badge(
+                  child: ch,
+                  label: Text(
+                    room.wishlistItem.length.toString(),
+                  ),
                 ),
-                onPressed: () {
-                  // ...
-                },
+                child: IconButton(
+                  iconSize: 25,
+                  icon: const Icon(
+                    Icons.bookmark,
+                    color: Colors.purple,
+                  ),
+                  onPressed: () {
+                    // ...
+                    Navigator.pushNamed(
+                      context,
+                      WishlistScreen.routeName,
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -90,8 +103,8 @@ class Landing extends StatelessWidget {
             itemCount: rooms.items.length,
             itemBuilder: (ctx, i) {
               return RoomItem(
-                  id: rooms.items[i].id!,
-                );
+                id: rooms.items[i].id!,
+              );
             },
           ),
         ),

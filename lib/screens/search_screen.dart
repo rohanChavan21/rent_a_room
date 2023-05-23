@@ -64,7 +64,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     backgroundColor: Colors.white,
                     child: IconButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(MyHomePage.routeName);
+                        Navigator.of(context).pushReplacementNamed(
+                          MyHomePage.routeName,
+                        );
                       },
                       icon: Icon(
                         Icons.arrow_back_ios_new,
