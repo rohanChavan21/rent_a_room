@@ -29,7 +29,9 @@ class Drawerr extends StatelessWidget {
             ),
             title: const Text('Search Properties'),
             onTap: () {
-              Navigator.of(context).pushNamed(SearchScreen.routeName);
+              Navigator.of(context).pushNamed(
+                SearchScreen.routeName,
+              );
             },
           ),
           ListTile(

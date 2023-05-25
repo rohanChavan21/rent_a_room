@@ -89,6 +89,7 @@ class Rooms with ChangeNotifier {
 
   void toggleWishList(Room room) {
     room.isWishlisted = !room.isWishlisted;
+    notifyListeners();
   }
 
   Room findById(String id) {
@@ -126,7 +127,7 @@ class Rooms with ChangeNotifier {
       }
       return true;
     }).toList();
-
+    print(filteredRooms);
     return filteredRooms;
   }
 }

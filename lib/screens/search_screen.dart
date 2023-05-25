@@ -138,6 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 onChanged: (value) {
                   setState(() {
                     _filters = value!;
+                    _search();
                   });
                 },
                 items: const [
