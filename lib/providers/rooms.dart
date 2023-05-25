@@ -15,6 +15,7 @@ class Rooms with ChangeNotifier {
       location: 'Mumbai, Maharashtra',
       rating: 4.5,
       numReviews: 20,
+      ownerNumber: '9867693438',
       isWishlisted: false,
       isBoysHostel: true,
       isGirlsHostel: false,
@@ -30,6 +31,7 @@ class Rooms with ChangeNotifier {
       location: 'Pune, Maharashtra',
       rating: 4.8,
       numReviews: 15,
+      ownerNumber: '9867693438',
       isWishlisted: false,
       isBoysHostel: false,
       isGirlsHostel: true,
@@ -45,6 +47,7 @@ class Rooms with ChangeNotifier {
       location: 'Nashik, Maharashtra',
       rating: 4.9,
       numReviews: 10,
+      ownerNumber: '9867693438',
       isWishlisted: false,
       isBoysHostel: true,
       isGirlsHostel: false,
@@ -60,6 +63,7 @@ class Rooms with ChangeNotifier {
       location: 'Aurangabad, Maharashtra',
       rating: 3.5,
       numReviews: 5,
+      ownerNumber: '9867693438',
       isWishlisted: false,
       isBoysHostel: false,
       isGirlsHostel: true,
@@ -78,6 +82,11 @@ class Rooms with ChangeNotifier {
         .toList();
   }
 
+  void addRoom(Room room) {
+    _items.add(room);
+    notifyListeners();
+  }
+
   void toggleWishList(Room room) {
     room.isWishlisted = !room.isWishlisted;
   }
@@ -86,34 +95,38 @@ class Rooms with ChangeNotifier {
     return _items.firstWhere((room) => room.id == id);
   }
 
-  Future<List<Room>> search(String query, {RoomFilters filters = const RoomFilters()}) async {
-  await Future.delayed(const Duration(seconds: 2)); // simulate network delay
-  final filteredRooms = _items.where((room) {
-    // Apply search query
-    if (!room.location.toLowerCase().contains(query.toLowerCase())) {
-      return false;
-    }
+  Future<List<Room>> search(String query,
+      {RoomFilters filters = const RoomFilters()}) async {
+    await Future.delayed(const Duration(seconds: 2)); // simulate network delay
+    final filteredRooms = _items.where((room) {
+      // Apply search query
+      if (!room.location.toLowerCase().contains(query.toLowerCase())) {
+        return false;
+      }
 
-    // Apply filters
-    if (filters.isBoysHostel != null && filters.isBoysHostel! && !room.isBoysHostel) {
-      return false;
-    }
-    if (filters.isGirlsHostel != null && filters.isGirlsHostel! && !room.isGirlsHostel) {
-      return false;
-    }
-    if (filters.location != null && filters.location != room.location) {
-      return false;
-    }
-    if (filters.minRent != null && room.rent < filters.minRent!) {
-      return false;
-    }
-    if (filters.maxRent != null && room.rent > filters.maxRent!) {
-      return false;
-    }
-    return true;
-  }).toList();
+      // Apply filters
+      if (filters.isBoysHostel != null &&
+          filters.isBoysHostel! &&
+          !room.isBoysHostel) {
+        return false;
+      }
+      if (filters.isGirlsHostel != null &&
+          filters.isGirlsHostel! &&
+          !room.isGirlsHostel) {
+        return false;
+      }
+      if (filters.location != null && filters.location != room.location) {
+        return false;
+      }
+      if (filters.minRent != null && room.rent < filters.minRent!) {
+        return false;
+      }
+      if (filters.maxRent != null && room.rent > filters.maxRent!) {
+        return false;
+      }
+      return true;
+    }).toList();
 
-  return filteredRooms;
-}
-
+    return filteredRooms;
+  }
 }

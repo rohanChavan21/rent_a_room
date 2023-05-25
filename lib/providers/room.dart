@@ -9,6 +9,7 @@ class Room with ChangeNotifier {
   final String location;
   final bool isBoysHostel;
   final bool isGirlsHostel;
+  final String ownerNumber;
   double rating;
   int numReviews;
   bool isWishlisted;
@@ -20,6 +21,7 @@ class Room with ChangeNotifier {
     required this.rent,
     required this.imageUrl,
     required this.location,
+    required this.ownerNumber,
     required this.isBoysHostel,
     required this.isGirlsHostel,
     this.rating = 0.0,
@@ -41,5 +43,4 @@ class Room with ChangeNotifier {
 
     notifyListeners();
   }
-  
 }

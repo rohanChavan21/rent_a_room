@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_room/providers/profile.dart';
+import 'package:rent_a_room/screens/add_room_screen.dart';
 import 'package:rent_a_room/screens/search_screen.dart';
 import 'package:rent_a_room/screens/wishlist_screen.dart';
 
@@ -28,8 +29,7 @@ class Drawerr extends StatelessWidget {
             ),
             title: const Text('Search Properties'),
             onTap: () {
-              Navigator.of(context)
-                  .pushNamed(SearchScreen.routeName);
+              Navigator.of(context).pushNamed(SearchScreen.routeName);
             },
           ),
           ListTile(
@@ -52,6 +52,18 @@ class Drawerr extends StatelessWidget {
             title: const Text('Pay Your Rent'),
             onTap: () {
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.add,
+              color: Colors.cyan,
+            ),
+            title: const Text('Add Room'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AddRoomScreen.routeName,
+              );
             },
           ),
           const SizedBox(

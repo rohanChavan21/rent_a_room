@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_a_room/providers/room.dart';
 import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/screens/booking_screen.dart';
 import 'package:rent_a_room/screens/home_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class RoomOverviewScreen extends StatefulWidget {
   static const routeName = '/room-overview';
@@ -20,6 +22,63 @@ class _RoomOverviewScreenState extends State<RoomOverviewScreen> {
     final loadedRoom =
         Provider.of<Rooms>(context, listen: false).findById(roomId);
     bool toggle = false;
+
+    void _callOwner() async {
+      final phoneNumber = loadedRoom.ownerNumber;
+      final url = 'tel:$phoneNumber';
+
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    void _messageOwner() async {
+      final phoneNumber = loadedRoom.ownerNumber;
+      final message = "Hi, I'm interested in the room you have listed.";
+      final url = 'sms:$phoneNumber?body=$message';
+
+      if (await canLaunchUrlString(url)) {
+        await launchUrlString(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    void contactOwner() async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Contact Owner'),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                  _callOwner();
+                },
+                child: const Text('Call'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                  _messageOwner();
+                },
+                child: const Text('Send SMS'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: const Text('Cancel'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,7 +120,7 @@ class _RoomOverviewScreenState extends State<RoomOverviewScreen> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(right:8.0),
+                  padding: const EdgeInsets.only(right: 8.0),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
@@ -175,7 +234,7 @@ class _RoomOverviewScreenState extends State<RoomOverviewScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: contactOwner,
                     icon: const Icon(
                       Icons.call,
                     ),
@@ -195,7 +254,11 @@ class _RoomOverviewScreenState extends State<RoomOverviewScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        BookingScreen.routeName,
+                      );
+                    },
                     icon: const Icon(
                       Icons.home_filled,
                     ),

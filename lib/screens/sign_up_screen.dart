@@ -18,14 +18,13 @@ class _SignupScreenState extends State<SignupScreen> {
 
   String _name = '';
   String _age = '';
-  String _selectedRole = '';
+  bool _isOwner = false;
+  bool _isMale = false;
   String _email = '';
   String _password = '';
   String _mobileNumber = '';
-  String _selectedGender = '';
 
-  final List<String> _roles = ['Owner', 'Renter'];
-  final List<String> _genders = ['Male', 'Female', 'Other'];
+  final List<String> _genders = ['Male', 'Female'];
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
@@ -137,40 +136,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                         ),
                         const SizedBox(height: 18),
-                        Container(
-                          padding: const EdgeInsets.only(left: 35, right: 4),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE5E0F5),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          // child: DropdownButtonFormField<String>(
-                          //   decoration: const InputDecoration(
-                          //     labelText: 'Role',
-                          //     hintText: 'Select your role',
-                          //     border: InputBorder.none,
-                          //   ),
-                          //   value: _selectedRole,
-                          //   items: _roles.map((String role) {
-                          //     return DropdownMenuItem<String>(
-                          //       value: role,
-                          //       child: Text(role),
-                          //     );
-                          //   }).toList(),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       _selectedRole = value!;
-                          //     });
-                          //   },
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return 'Please select your role';
-                          //     }
-                          //     return null;
-                          //   },
-                          //   onSaved: (value) {
-                          //     _selectedRole = value!;
-                          //   },
-                          // ),
+                        SwitchListTile(
+                          title: const Text('Owner'),
+                          value: _isOwner,
+                          onChanged: (value) {
+                            setState(() {
+                              _isOwner = value;
+                            });
+                          },
                         ),
                         const SizedBox(height: 18),
                         Container(
@@ -229,40 +202,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                         ),
                         const SizedBox(height: 18),
-                        Container(
-                          padding: const EdgeInsets.only(left: 35, right: 4),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE5E0F5),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          // child: DropdownButtonFormField<String>(
-                          //   decoration: const InputDecoration(
-                          //     labelText: 'Gender',
-                          //     hintText: 'Select your gender',
-                          //     border: InputBorder.none,
-                          //   ),
-                          //   value: _selectedGender,
-                          //   items: _genders.map((String gender) {
-                          //     return DropdownMenuItem<String>(
-                          //       value: gender,
-                          //       child: Text(gender),
-                          //     );
-                          //   }).toList(),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       _selectedGender = value!;
-                          //     });
-                          //   },
-                          //   validator: (value) {
-                          //     if (value!.isEmpty) {
-                          //       return 'Please select your gender';
-                          //     }
-                          //     return null;
-                          //   },
-                          //   onSaved: (value) {
-                          //     _selectedGender = value!;
-                          //   },
-                          // ),
+                        SwitchListTile(
+                          title: const Text('Male'),
+                          value: _isMale,
+                          onChanged: (value) {
+                            setState(() {
+                              _isMale = value;
+                            });
+                          },
                         ),
                         const SizedBox(height: 18),
                         Container(

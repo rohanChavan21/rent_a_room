@@ -23,6 +23,7 @@ class Wishlist with ChangeNotifier {
       description: room.description,
       rent: room.rent,
       imageUrl: room.imageUrl,
+      ownerNumber: room.ownerNumber,
       location: room.location,
       isBoysHostel: room.isBoysHostel,
       isGirlsHostel: room.isGirlsHostel,

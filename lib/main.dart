@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_room/providers/profile.dart';
 import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/screens/add_room_screen.dart';
+import 'package:rent_a_room/screens/booking_screen.dart';
 import 'package:rent_a_room/screens/edit_profile_screen.dart';
 import 'package:rent_a_room/screens/home_screen.dart';
 import 'package:rent_a_room/screens/login_screen.dart';
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
           SignupScreen.routeName: (ctx) => SignupScreen(),
           EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
+          BookingScreen.routeName: (ctx) => BookingScreen(),
+          AddRoomScreen.routeName: (ctx) => AddRoomScreen(),
         },
       ),
     );
