@@ -86,30 +86,34 @@ class Rooms with ChangeNotifier {
     return _items.firstWhere((room) => room.id == id);
   }
 
-  Future<List<Room>> search(String query,
-      {RoomFilters filters = const RoomFilters()}) async {
-    await Future.delayed(const Duration(seconds: 2)); // simulate network delay
-    List<Room> results = [];
-    for (var room in _items) {
-      if (room.location.toLowerCase().contains(query.toLowerCase())) {
-        if (filters.isBoysHostel! && !room.isBoysHostel) {
-          continue;
-        }
-        if (filters.isGirlsHostel! && !room.isGirlsHostel) {
-          continue;
-        }
-        if (filters.location != null && filters.location != room.location) {
-          continue;
-        }
-        if (filters.minRent != null && room.rent < filters.minRent!) {
-          continue;
-        }
-        if (filters.maxRent != null && room.rent > filters.maxRent!) {
-          continue;
-        }
-        results.add(room);
-      }
+  Future<List<Room>> search(String query, {RoomFilters filters = const RoomFilters()}) async {
+  await Future.delayed(const Duration(seconds: 2)); // simulate network delay
+  final filteredRooms = _items.where((room) {
+    // Apply search query
+    if (!room.location.toLowerCase().contains(query.toLowerCase())) {
+      return false;
     }
-    return results;
-  }
+
+    // Apply filters
+    if (filters.isBoysHostel != null && filters.isBoysHostel! && !room.isBoysHostel) {
+      return false;
+    }
+    if (filters.isGirlsHostel != null && filters.isGirlsHostel! && !room.isGirlsHostel) {
+      return false;
+    }
+    if (filters.location != null && filters.location != room.location) {
+      return false;
+    }
+    if (filters.minRent != null && room.rent < filters.minRent!) {
+      return false;
+    }
+    if (filters.maxRent != null && room.rent > filters.maxRent!) {
+      return false;
+    }
+    return true;
+  }).toList();
+
+  return filteredRooms;
+}
+
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:rent_a_room/screens/sign_up_screen.dart';
 import '/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login';
   const LoginScreen({Key? key}) : super(key: key);
   @override
   LoginScreenState createState() => LoginScreenState();
@@ -146,14 +148,15 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-
+                          Navigator.of(context).pushReplacementNamed(
+                            SignupScreen.routeName,
+                          );
                         },
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: Colors.blueAccent,
-                            decoration: TextDecoration.underline
-                          ),
+                              color: Colors.blueAccent,
+                              decoration: TextDecoration.underline),
                         ),
                       )
                     ],

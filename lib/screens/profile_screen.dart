@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_a_room/providers/profile.dart';
+import 'package:rent_a_room/screens/edit_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final Profile profile = Profile(
-    name: 'Promod Adde',
-    email: 'PramodAdde@gmail.com',
-    imageUrl: 'images/profile2.png',
-    mobileNumber: '9322289768',
-    age: 20,
-    gender: 'male',
-  );
-
   ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final profile = Provider.of<Profiles>(context).profile;
     return Container(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -31,6 +25,9 @@ class ProfileScreen extends StatelessWidget {
                 child: FloatingActionButton(
                   onPressed: () {
                     // handle edit profile button tap
+                    Navigator.of(context).pushNamed(
+                      EditProfileScreen.routeName,
+                    );
                   },
                   child: const Icon(Icons.edit),
                 ),

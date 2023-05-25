@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_a_room/providers/profile.dart';
 import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/screens/edit_profile_screen.dart';
 import 'package:rent_a_room/screens/home_screen.dart';
 import 'package:rent_a_room/screens/login_screen.dart';
 import 'package:rent_a_room/screens/room_overview_screen.dart';
 import 'package:rent_a_room/screens/search_screen.dart';
+import 'package:rent_a_room/screens/sign_up_screen.dart';
 import 'package:rent_a_room/screens/wishlist_screen.dart';
 
 void main() {
@@ -12,13 +15,17 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => Rooms(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Profiles(),
         )
       ],
       child: MaterialApp(
@@ -50,7 +57,10 @@ class MyApp extends StatelessWidget {
           MyHomePage.routeName: (ctx) => const MyHomePage(),
           RoomOverviewScreen.routeName: (ctx) => const RoomOverviewScreen(),
           SearchScreen.routeName: (ctx) => SearchScreen(),
-          WishlistScreen.routeName: (ctx) => WishlistScreen()
+          WishlistScreen.routeName: (ctx) => WishlistScreen(),
+          SignupScreen.routeName: (ctx) => SignupScreen(),
+          EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
+          LoginScreen.routeName: (ctx) => LoginScreen(),
         },
       ),
     );

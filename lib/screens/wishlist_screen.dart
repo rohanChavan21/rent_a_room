@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_room/providers/rooms.dart';
+import 'package:rent_a_room/widgets/drawerr.dart';
 import 'package:rent_a_room/widgets/room_item.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/wishlist';
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final wishListRooms = Provider.of<Rooms>(context).wishlistItem;
 
-    return Material(
-      child: Column(
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: const Drawerr(),
+      body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Container(
@@ -25,15 +29,17 @@ class WishlistScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: const CircleAvatar(
-                          radius: 30,
-                          backgroundImage: AssetImage('images/profile2.png'),
+                      child: Builder(
+                        builder: (ctx) => IconButton(
+                          icon: const CircleAvatar(
+                            radius: 30,
+                            backgroundImage: AssetImage('images/profile2.png'),
+                          ),
+                          onPressed: () {
+                            Scaffold.of(ctx).openDrawer();
+                          },
+                          iconSize: 48.0,
                         ),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        iconSize: 48.0,
                       ),
                     ),
                   ),
@@ -44,7 +50,7 @@ class WishlistScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 25,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

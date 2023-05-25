@@ -5,6 +5,7 @@ class Profile with ChangeNotifier {
   final String mobileNumber;
   final String email;
   final String password;
+  final String role;
   final int age;
   final String gender;
   final String? imageUrl;
@@ -12,8 +13,9 @@ class Profile with ChangeNotifier {
   Profile({
     required this.name,
     required this.email,
-    required this.imageUrl,
+    this.imageUrl,
     required this.mobileNumber,
+    required this.role,
     required this.age,
     required this.gender,
     this.password = '',
@@ -21,7 +23,17 @@ class Profile with ChangeNotifier {
 }
 
 class Profiles with ChangeNotifier {
-  final List<Profile> _profiles = [];
+  final List<Profile> _profiles = [
+    Profile(
+    name: 'Promod Adde',
+    email: 'PramodAdde@gmail.com',
+    imageUrl: 'images/profile2.png',
+    mobileNumber: '9322289768',
+    role: 'Renter',
+    age: 20,
+    gender: 'male',
+  ),
+  ];
 
   Profile get profile {
     return _profiles[0];
@@ -33,6 +45,7 @@ class Profiles with ChangeNotifier {
       email: profile.email,
       imageUrl: profile.imageUrl,
       mobileNumber: profile.mobileNumber,
+      role: profile.role,
       age: profile.age,
       gender: profile.gender,
     );

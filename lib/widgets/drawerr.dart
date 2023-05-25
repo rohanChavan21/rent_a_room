@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_a_room/providers/profile.dart';
 import 'package:rent_a_room/screens/search_screen.dart';
+import 'package:rent_a_room/screens/wishlist_screen.dart';
 
 class Drawerr extends StatelessWidget {
   const Drawerr({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final profile = Provider.of<Profiles>(context).profile;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text('Promod Adde'),
-            accountEmail: Text('PramodAdde@gmail.com'),
+          UserAccountsDrawerHeader(
+            accountName: Text(profile.name),
+            accountEmail: Text(profile.email),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('images/profile2.png'),
+              backgroundImage: AssetImage(profile.imageUrl!),
             ),
           ),
           ListTile(
@@ -25,7 +29,7 @@ class Drawerr extends StatelessWidget {
             title: const Text('Search Properties'),
             onTap: () {
               Navigator.of(context)
-                  .pushReplacementNamed(SearchScreen.routeName);
+                  .pushNamed(SearchScreen.routeName);
             },
           ),
           ListTile(
@@ -35,7 +39,9 @@ class Drawerr extends StatelessWidget {
             ),
             title: const Text('WishList'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushNamed(
+                WishlistScreen.routeName,
+              );
             },
           ),
           ListTile(
